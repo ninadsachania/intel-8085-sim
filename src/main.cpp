@@ -30,6 +30,45 @@ typedef int64_t  s64;
 Chip chip;
 
 const char *title = "8085 Simulator";
+bool done = false;
+
+
+void draw_menu_bar() {
+    bool open_about = false;
+
+    if (ImGui::BeginMainMenuBar()) {
+        //
+        // Help.
+        //
+        if (ImGui::BeginMenu("Help")) {
+            // About.
+            if (ImGui::MenuItem("About")) {
+                open_about = true;
+            }
+
+            ImGui::EndMenu();
+        }
+
+
+        ImGui::EndMainMenuBar();
+    }
+
+    if (open_about) {
+        ImGui::OpenPopup("About");
+    }
+
+    // Always center this window when appearing.
+    ImVec2 center = ImGui::GetMainViewport()->GetCenter();
+    ImGui::SetNextWindowPos(center, ImGuiCond_Appearing, ImVec2(0.5f, 0.5f));
+
+    if (ImGui::BeginPopupModal("About", NULL, ImGuiWindowFlags_AlwaysAutoResize)) {
+        ImGui::Text("Made with love by Ninad Sachania :-)");
+
+        if (ImGui::Button("OK", ImVec2(120, 0))) { ImGui::CloseCurrentPopup(); }
+
+        ImGui::EndPopup();
+    }
+}
 
 void draw_registers() {
     auto register_label_color = ImVec4(1.0f, 0.0f, 0.0f, 1.00f);
@@ -144,6 +183,8 @@ void draw_flags() {
 }
 
 void draw_ui() {
+    draw_menu_bar();
+
     draw_registers();
     draw_flags();
 }
@@ -265,7 +306,6 @@ int main(int argc, char **argv) {
     ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
     // Main loop
-    bool done = false;
 #ifdef __EMSCRIPTEN__
     // For an Emscripten build we are disabling file-system access, so let's not attempt to do a fopen() of the imgui.ini file.
     // You may manually call LoadIniSettingsFromMemory() to load settings from your own storage.
