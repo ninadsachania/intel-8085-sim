@@ -1,8 +1,8 @@
 @REM Build for Visual Studio compiler. Run your copy of vcvars64.bat or vcvarsall.bat to setup command-line compiler.
 
 @set OUT_EXE=8085sim
-@set INCLUDES=/I.\thirdparty\imgui /I.\thirdparty\imgui\backends /I.\thirdparty\SDL3\windows\include
-@set SOURCES=.\src\main.cpp .\thirdparty\imgui\backends\imgui_impl_sdl3.cpp .\thirdparty\imgui\backends\imgui_impl_opengl3.cpp .\thirdparty\imgui\imgui*.cpp
+@set INCLUDES=/I.\thirdparty\imgui /I.\thirdparty\imgui\backends /I.\thirdparty\SDL3\windows\include /I.\thirdparty\log
+@set SOURCES=.\src\main.cpp .\thirdparty\imgui\backends\imgui_impl_sdl3.cpp .\thirdparty\imgui\backends\imgui_impl_opengl3.cpp .\thirdparty\imgui\imgui*.cpp .\thirdparty\log\*.c
 @set LIBS=/LIBPATH:.\thirdparty\SDL3\windows\lib SDL3.lib opengl32.lib shell32.lib
 
 @set OUT_DIR=build
