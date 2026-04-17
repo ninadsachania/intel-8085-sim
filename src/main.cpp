@@ -100,8 +100,52 @@ void draw_registers() {
     ImGui::End();
 }
 
+void draw_flags() {
+    auto flag_label_color = ImVec4(1.0f, 1.0f, 0.0f, 1.00f);
+
+    ImGui::Begin("Flags");
+
+    //
+    // Flag S.
+    //
+    ImGui::TextColored(flag_label_color, " S:");
+    ImGui::SameLine();
+    ImGui::Text("%s", (chip.flag_s ? "1" : "0"));
+
+    //
+    // Flag Z.
+    //
+    ImGui::TextColored(flag_label_color, " Z:");
+    ImGui::SameLine();
+    ImGui::Text("%s", (chip.flag_z ? "1" : "0"));
+
+    //
+    // Flag AC.
+    //
+    ImGui::TextColored(flag_label_color, "AC:");
+    ImGui::SameLine();
+    ImGui::Text("%s", (chip.flag_ac ? "1" : "0"));
+
+    //
+    // Flag P.
+    //
+    ImGui::TextColored(flag_label_color, " P:");
+    ImGui::SameLine();
+    ImGui::Text("%s", (chip.flag_p ? "1" : "0"));
+
+    //
+    // Flag C.
+    //
+    ImGui::TextColored(flag_label_color, " C:");
+    ImGui::SameLine();
+    ImGui::Text("%s", (chip.flag_c ? "1" : "0"));
+
+    ImGui::End();
+}
+
 void draw_ui() {
     draw_registers();
+    draw_flags();
 }
 
 // Main code
