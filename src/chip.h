@@ -37,3 +37,40 @@ struct Chip {
     static constexpr s64 IO_PORTS_SIZE = 256;
     u8 io_ports[IO_PORTS_SIZE] = { 0 };
 };
+
+void reset_registers(Chip *chip) {
+    chip->reg_a = 0x00;
+    chip->reg_b = 0x00;
+    chip->reg_c = 0x00;
+    chip->reg_d = 0x00;
+    chip->reg_e = 0x00;
+    chip->reg_h = 0x00;
+    chip->reg_l = 0x00;
+
+    chip->reg_sp  = 0x0000;
+    chip->reg_pc  = 0x0000;
+    chip->reg_psw = 0x0000;
+}
+
+void reset_flags(Chip *chip) {
+    chip->flag_s  = false;
+    chip->flag_z  = false;
+    chip->flag_ac = false;
+    chip->flag_p  = false;
+    chip->flag_c  = false;
+}
+
+void reset_io_ports(Chip *chip) {
+    memset(chip->io_ports, 0, sizeof(chip->io_ports));
+}
+
+void reset_memory(Chip *chip) {
+    memset(chip->memory, 0, sizeof(chip->memory));
+}
+
+void reset_all(Chip *chip) {
+    reset_registers(chip);
+    reset_flags(chip);
+    reset_memory(chip);
+    reset_io_ports(chip);
+}

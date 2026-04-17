@@ -61,6 +61,41 @@ void draw_menu_bar() {
 
     if (ImGui::BeginMainMenuBar()) {
         //
+        // Reset.
+        //
+        if (ImGui::BeginMenu("Reset")) {
+
+            // Reset registers.
+            if (ImGui::MenuItem("Registers")) {
+                reset_registers(&chip);
+            }
+
+            // Reset flags.
+            if (ImGui::MenuItem("Flags")) {
+                reset_flags(&chip);
+            }
+
+            // Reset I/O ports.
+            if (ImGui::MenuItem("I/O Ports")) {
+                reset_io_ports(&chip);
+            }
+
+            // Reset memory.
+            if (ImGui::MenuItem("Memory")) {
+                reset_memory(&chip);
+            }
+
+            ImGui::Separator();
+
+            // Reset ALL!.
+            if (ImGui::MenuItem("Reset All", "Ctrl+R")) {
+                reset_all(&chip);
+            }
+
+            ImGui::EndMenu();
+        }
+
+        //
         // Help.
         //
         if (ImGui::BeginMenu("Help")) {
@@ -81,6 +116,10 @@ void draw_menu_bar() {
 
 
         ImGui::EndMainMenuBar();
+    }
+
+    if (ImGui::IsKeyDown(ImGuiKey_LeftCtrl) && ImGui::IsKeyPressed(ImGuiKey_R)) {
+        reset_all(&chip);
     }
 
     if (open_tutorial) {
