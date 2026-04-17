@@ -101,6 +101,31 @@ void draw_menu_bar() {
         }
 
         //
+        // Assembler.
+        //
+        if (ImGui::BeginMenu("Assembler")) {
+
+            // Assemble.
+            if (ImGui::MenuItem("Assemble", "F8")) {
+                log_warn("@Incomplete: Implement Assemble.");
+            }
+
+            // Execute.
+            if (ImGui::MenuItem("Execute", "F9")) {
+                log_warn("@Incomplete: Implement Execute.");
+            }
+
+            ImGui::Separator();
+
+            // Show Listing.
+            if (ImGui::MenuItem("Show Listing", "Ctrl+L")) {
+                log_warn("@Incomplete: Implement Show Listing.");
+            }
+
+            ImGui::EndMenu();
+        }
+
+        //
         // Load Sample Programs.
         //
         if (ImGui::BeginMenu("Load Sample Programs")) {
