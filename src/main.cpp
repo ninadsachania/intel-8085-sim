@@ -32,15 +32,36 @@ Chip chip;
 const char *title = "8085 Simulator";
 bool done = false;
 
+char tutorial_text[8192] = R"(Assembly Language Guide
+=======================
+
+:Date: 2026-04-17
+:Version: 0.1
+:Authors: Ninad Sachania <ninad.sachania@gmail.com>
+
+
+Introduction
+------------
+
+TODO: Write the introduction and the rest of the tutorial.
+)";
 
 void draw_menu_bar() {
-    bool open_about = false;
+    static bool open_tutorial = false;
+    bool open_about    = false;
 
     if (ImGui::BeginMainMenuBar()) {
         //
         // Help.
         //
         if (ImGui::BeginMenu("Help")) {
+            // Assembler Tutorial.
+            if (ImGui::MenuItem("Assembler Tutorial")) {
+                open_tutorial = true;
+            }
+
+            ImGui::Separator();
+
             // About.
             if (ImGui::MenuItem("About")) {
                 open_about = true;
@@ -51,6 +72,12 @@ void draw_menu_bar() {
 
 
         ImGui::EndMainMenuBar();
+    }
+
+    if (open_tutorial) {
+        ImGui::Begin("Assembler Tutorial", &open_tutorial);
+        ImGui::InputTextMultiline("##text", tutorial_text, sizeof(tutorial_text), ImVec2(-1, -1), ImGuiInputTextFlags_ReadOnly);
+        ImGui::End();
     }
 
     if (open_about) {
