@@ -290,8 +290,9 @@ int main(int argc, char **argv) {
     //io.ConfigViewportsNoTaskBarIcon = true;
 
     // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
-    //ImGui::StyleColorsLight();
+    ImGui::StyleColorsClassic();
+    // ImGui::StyleColorsDark();
+    // ImGui::StyleColorsLight();
 
     // Setup scaling
     ImGuiStyle& style = ImGui::GetStyle();
