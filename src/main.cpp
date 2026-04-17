@@ -46,6 +46,15 @@ Introduction
 TODO: Write the introduction and the rest of the tutorial.
 )";
 
+//
+// Helper functions.
+//
+template<typename T>
+void clamp(T *value, T min, T max) {
+    if (*value < min) { *value = min; }
+    if (*value > max) { *value = max; }
+}
+
 void draw_menu_bar() {
     static bool open_tutorial = false;
     bool open_about    = false;
@@ -278,12 +287,33 @@ void draw_view() {
     ImGui::End();
 }
 
+void draw_update_memory() {
+    static int memory_address = 0x0;
+    static int memory_value   = 0x0;
+
+    ImGui::Begin("Update Memory");
+
+    ImGui::InputScalar("Address (in hex)", ImGuiDataType_U16, &memory_address, NULL, NULL, "%X", ImGuiInputTextFlags_CharsHexadecimal);
+    clamp<int>(&memory_address, 0, chip.MEMORY_SIZE - 1);
+
+    ImGui::InputScalar("Value (in hex)", ImGuiDataType_U16, &memory_value, NULL, NULL, "%X", ImGuiInputTextFlags_CharsHexadecimal);
+    clamp<int>(&memory_value, 0, 255);
+
+    if (ImGui::Button("Update")) {
+        log_info("Setting memory location %d to value %d.", memory_address, memory_value);
+        chip.memory[memory_address] = memory_value;
+    }
+
+    ImGui::End();
+}
+
 void draw_ui() {
     draw_menu_bar();
 
     draw_registers();
     draw_flags();
     draw_view();
+    draw_update_memory();
 }
 
 // Main code
