@@ -98,7 +98,7 @@ void draw_menu_bar() {
 
             // Quit.
             if (ImGui::MenuItem("Quit")) {
-                log_warn("@Incomplete: Implement Quit.");
+                done = true;
             }
 
             ImGui::EndMenu();
