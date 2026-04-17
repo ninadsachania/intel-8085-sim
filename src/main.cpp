@@ -56,6 +56,11 @@ void clamp(T *value, T min, T max) {
 }
 
 void draw_menu_bar() {
+    static const char *sample_programs[] = {
+        "One",
+        "Two",
+        "Three"
+    };
     static bool open_tutorial = false;
     bool open_about    = false;
 
@@ -90,6 +95,20 @@ void draw_menu_bar() {
             // Reset ALL!.
             if (ImGui::MenuItem("Reset All", "Ctrl+R")) {
                 reset_all(&chip);
+            }
+
+            ImGui::EndMenu();
+        }
+
+        //
+        // Load Sample Programs.
+        //
+        if (ImGui::BeginMenu("Load Sample Programs")) {
+            const auto size = sizeof(sample_programs) / sizeof(sample_programs[0]);
+            for (int i = 0; i < size; i += 1) {
+                if (ImGui::MenuItem(sample_programs[i])) {
+                    log_warn("@Stub: Loaded sample program '%s'", sample_programs[i]);
+                }
             }
 
             ImGui::EndMenu();
