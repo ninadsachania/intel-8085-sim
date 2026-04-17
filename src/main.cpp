@@ -31,6 +31,79 @@ Chip chip;
 
 const char *title = "8085 Simulator";
 
+void draw_registers() {
+    auto register_label_color = ImVec4(1.0f, 0.0f, 0.0f, 1.00f);
+
+    ImGui::Begin("CPU State"); // , NULL, ImGuiWindowFlags_AlwaysAutoResize);
+
+    //
+    // Register A.
+    //
+    ImGui::TextColored(register_label_color, "A:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_a);
+
+    //
+    // Register B & C.
+    //
+    ImGui::TextColored(register_label_color, "B:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_b);
+    ImGui::SameLine();
+    ImGui::TextColored(register_label_color, "C:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_c);
+
+    //
+    // Register D & E.
+    //
+    ImGui::TextColored(register_label_color, "D:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_d);
+    ImGui::SameLine();
+    ImGui::TextColored(register_label_color, "E:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_e);
+
+    //
+    // Register H & L.
+    //
+    ImGui::TextColored(register_label_color, "H:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_h);
+    ImGui::SameLine();
+    ImGui::TextColored(register_label_color, "L:");
+    ImGui::SameLine();
+    ImGui::Text("%02X", chip.reg_l);
+
+    //
+    // Register stack pointer.
+    //
+    ImGui::TextColored(register_label_color, "SP:");
+    ImGui::SameLine();
+    ImGui::Text("%04X", chip.reg_sp);
+
+    //
+    // Register program counter.
+    //
+    ImGui::TextColored(register_label_color, "PC:");
+    ImGui::SameLine();
+    ImGui::Text("%04X", chip.reg_pc);
+
+    //
+    // Register program status word.
+    //
+    ImGui::TextColored(register_label_color, "PSW:");
+    ImGui::SameLine();
+    ImGui::Text("%04X", chip.reg_psw);
+
+    ImGui::End();
+}
+
+void draw_ui() {
+    draw_registers();
+}
+
 // Main code
 int main(int argc, char **argv) {
     // Setup SDL
@@ -183,6 +256,8 @@ int main(int argc, char **argv) {
         ImGui_ImplOpenGL3_NewFrame();
         ImGui_ImplSDL3_NewFrame();
         ImGui::NewFrame();
+
+        draw_ui();
 
         // Rendering
         ImGui::Render();
