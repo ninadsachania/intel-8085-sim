@@ -307,6 +307,26 @@ void draw_update_memory() {
     ImGui::End();
 }
 
+void draw_update_io_ports() {
+    static int port_address = 0;
+    static int port_value = 0;
+
+    ImGui::Begin("Update I/O Ports");
+
+    ImGui::InputScalar("Address (in hex)", ImGuiDataType_U8, &port_address, NULL, NULL, "%X", ImGuiInputTextFlags_CharsHexadecimal);
+    clamp<int>(&port_address, 0, chip.IO_PORTS_SIZE - 1);
+
+    ImGui::InputScalar("Value (in hex)", ImGuiDataType_U8, &port_value, NULL, NULL, "%X", ImGuiInputTextFlags_CharsHexadecimal);
+    clamp<int>(&port_address, 0, 255);
+
+    if (ImGui::Button("Update")) {
+        log_info("Setting port %d to value %d.", port_address, port_value);
+        chip.io_ports[port_address] = port_value;
+    }
+
+    ImGui::End();
+}
+
 void draw_ui() {
     draw_menu_bar();
 
@@ -314,6 +334,7 @@ void draw_ui() {
     draw_flags();
     draw_view();
     draw_update_memory();
+    draw_update_io_ports();
 }
 
 // Main code
