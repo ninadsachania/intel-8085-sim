@@ -66,6 +66,45 @@ void draw_menu_bar() {
 
     if (ImGui::BeginMainMenuBar()) {
         //
+        // File.
+        //
+        if (ImGui::BeginMenu("File")) {
+            // New.
+            if (ImGui::MenuItem("New")) {
+                log_warn("@Incomplete: Implement New.");
+            }
+
+            // Open.
+            if (ImGui::MenuItem("Open")) {
+                log_warn("@Incomplete: Implement Open.");
+            }
+
+            // Save.
+            if (ImGui::MenuItem("Save")) {
+                log_warn("@Incomplete: Implement Save.");
+            }
+
+            // Save As.
+            if (ImGui::MenuItem("Save As")) {
+                log_warn("@Incomplete: Implement Save As.");
+            }
+
+            // Print.
+            if (ImGui::MenuItem("Print")) {
+                log_warn("@Incomplete: Implement Print.");
+            }
+
+            ImGui::Separator();
+
+            // Quit.
+            if (ImGui::MenuItem("Quit")) {
+                log_warn("@Incomplete: Implement Quit.");
+            }
+
+            ImGui::EndMenu();
+        }
+
+        //
         // Reset.
         //
         if (ImGui::BeginMenu("Reset")) {
