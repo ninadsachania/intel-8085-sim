@@ -209,11 +209,81 @@ void draw_flags() {
     ImGui::End();
 }
 
+void draw_view() {
+    ImGui::Begin("View");
+
+    if (ImGui::BeginTabBar("Tabs")) {
+        //
+        // Memory tab.
+        //
+        if (ImGui::BeginTabItem("Memory")) {
+            if (ImGui::BeginTable("Memory", 3)) {
+
+                ImGui::TableSetupColumn("Address (Hex)");
+                ImGui::TableSetupColumn("Address (Decimal)");
+                ImGui::TableSetupColumn("Value (Hex)");
+                ImGui::TableHeadersRow();
+
+                for (int row = 0; row < 1000 + 1; row += 1) { // @Hardcoded!!!
+                    ImGui::TableNextRow();
+
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::Text("%04X", row);
+
+                    ImGui::TableSetColumnIndex(1);
+                    ImGui::Text("%d", row);
+
+                    ImGui::TableSetColumnIndex(2);
+                    ImGui::Text("%02X", chip.memory[row]);
+                }
+                ImGui::EndTable();
+            }
+
+            ImGui::EndTabItem();
+        }
+
+        //
+        // I/O ports tab.
+        //
+        if (ImGui::BeginTabItem("I/O Ports")) {
+            if (ImGui::BeginTable("I/O Ports", 3)) {
+
+                ImGui::TableSetupColumn("Address (Hex)");
+                ImGui::TableSetupColumn("Address (Decimal)");
+                ImGui::TableSetupColumn("Value (Hex)");
+                ImGui::TableHeadersRow();
+
+                for (int row = 0; row < sizeof(chip.io_ports); row += 1) {
+                    ImGui::TableNextRow();
+
+                    ImGui::TableSetColumnIndex(0);
+                    ImGui::Text("%02X", row);
+
+                    ImGui::TableSetColumnIndex(1);
+                    ImGui::Text("%d", row);
+
+                    ImGui::TableSetColumnIndex(2);
+                    ImGui::Text("%02X", chip.io_ports[row]);
+                }
+
+                ImGui::EndTable();
+            }
+
+            ImGui::EndTabItem();
+        }
+
+        ImGui::EndTabBar();
+    }
+
+    ImGui::End();
+}
+
 void draw_ui() {
     draw_menu_bar();
 
     draw_registers();
     draw_flags();
+    draw_view();
 }
 
 // Main code
