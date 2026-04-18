@@ -32,6 +32,7 @@ Chip chip;
 const char *title = "8085 Simulator";
 bool done = false;
 
+char assembler_buffer[8192] = "";
 char tutorial_text[8192] = R"(Assembly Language Guide
 =======================
 
@@ -449,6 +450,12 @@ void draw_update_io_ports() {
     ImGui::End();
 }
 
+void draw_text_editor() {
+    ImGui::Begin("Assembler");
+    ImGui::InputTextMultiline("##text", assembler_buffer, sizeof(assembler_buffer), ImVec2(-1, -1));
+    ImGui::End();
+}
+
 void draw_ui() {
     draw_menu_bar();
 
@@ -457,6 +464,7 @@ void draw_ui() {
     draw_view();
     draw_update_memory();
     draw_update_io_ports();
+    draw_text_editor();
 }
 
 // Main code
