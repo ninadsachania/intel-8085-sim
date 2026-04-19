@@ -232,7 +232,7 @@ void draw_menu_bar() {
 void draw_registers() {
     auto register_label_color = ImVec4(1.0f, 0.0f, 0.0f, 1.00f);
 
-    ImGui::Begin("CPU State"); // , NULL, ImGuiWindowFlags_AlwaysAutoResize);
+    ImGui::Begin("Registers"); // , NULL, ImGuiWindowFlags_AlwaysAutoResize);
 
     //
     // Register A.
